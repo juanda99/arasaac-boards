@@ -27,6 +27,7 @@
   "dependencies": {
     "@babel/core": "^7.12.13",
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@react-pdf/renderer": "^1.6.13",
     "konva": "^7.2.2",
     "next": "latest",
