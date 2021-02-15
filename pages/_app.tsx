@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { wrapper } from '../store/store'
-import Drawer from '@material-ui/core/Drawer'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -97,8 +96,6 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
     setMobileMoreAnchorEl,
   ] = React.useState<null | HTMLElement>(null)
 
-  const [openDrawer, toggleDrawer] = React.useState(true)
-
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
@@ -118,8 +115,6 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget)
   }
-
-  const handleToggleDrawer = () => toggleDrawer(!openDrawer)
 
   const menuId = 'primary-search-account-menu'
   const renderMenu = (
@@ -259,27 +254,6 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
           </AppBar>
           {renderMobileMenu}
           {renderMenu}
-          {!openDrawer && (
-            <div
-              style={{ position: 'absolute', width: '130px', height: '100%' }}
-              onMouseOver={handleToggleDrawer}
-            />
-          )}
-          {/* TODO: Set differente drawers,  see https://codesandbox.io/s/thirsty-ives-zc0ig?from-embed=&file=/layouts/layout-wrapper.js */}
-          {/* TODO: implement searchField, we neeed react-intl first! */}
-          {/* TODO: drag and drop, see: https://codesandbox.io/s/github/konvajs/site/tree/master/react-demos/drop_image_into_stage?from-embed=&file=/src/index.js:0-874 */}
-          {/* TODO: drag to specific poosition, see https://codepen.io/pierrebleroux/pen/gGpvxJ */}
-          <Drawer open={openDrawer}>
-            <div
-              style={{ display: 'flex', flexWrap: 'wrap' }}
-              onMouseLeave={handleToggleDrawer}
-            >
-              <img
-                src="https://static.arasaac.org/pictograms/2517/2517_300.png"
-                style={{ width: '200px', height: '200px' }}
-              />
-            </div>
-          </Drawer>
         </div>
         <Component {...pageProps} />
       </ThemeProvider>

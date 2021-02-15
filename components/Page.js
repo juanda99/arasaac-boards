@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import Clock from './Clock'
 import AddCount from './AddCount'
 
