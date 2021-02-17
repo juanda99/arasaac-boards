@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/PDFView.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -14,16 +14,22 @@ const BoardPage: FC = (): ReactElement => {
     setDragUrl(url)
   }
   return (
-    <>
-      <h1>Board Page</h1>
-      <Sidebar onDrag={handleDrag} />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: '',
+        paddingLeft: 200,
+      }}
+    >
       <BoardWithNoSSR dragUrl={dragUrl} />
+      <Sidebar onDrag={handleDrag} />
 
       {/* TODO: Set differente drawers,  see https://codesandbox.io/s/thirsty-ives-zc0ig?from-embed=&file=/layouts/layout-wrapper.js */}
       {/* TODO: implement searchField, we neeed react-intl first! */}
       {/* TODO: drag and drop, see: https://codesandbox.io/s/github/konvajs/site/tree/master/react-demos/drop_image_into_stage?from-embed=&file=/src/index.js:0-874 */}
       {/* TODO: drag to specific poosition, see https://codepen.io/pierrebleroux/pen/gGpvxJ */}
-    </>
+    </div>
   )
 }
 
@@ -44,7 +50,7 @@ const Sidebar = ({ onDrag }) => {
           onMouseOver={handleToggleDrawer}
         />
       )} */}
-      <div style={{ position: 'absolute', top: 0, left: 200 }}>
+      <div>
         <img
           alt="lion"
           src="https://static.arasaac.org/pictograms/27509/27509_300.png"
