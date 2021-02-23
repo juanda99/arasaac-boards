@@ -8,7 +8,6 @@ const BoardWithNoSSR = dynamic(() => import('../components/Board'), {
 
 const BoardPage: FC = (): ReactElement => {
   const [dragUrl, setDragUrl] = useState(null) //for dragUrl
-  console.log('render  again!')
 
   const handleDrag = (url) => {
     setDragUrl(url)
@@ -22,9 +21,8 @@ const BoardPage: FC = (): ReactElement => {
         paddingLeft: 200,
       }}
     >
-      <BoardWithNoSSR dragUrl={dragUrl} />
       <Sidebar onDrag={handleDrag} />
-
+      <BoardWithNoSSR dragUrl={dragUrl} />
       {/* TODO: Set differente drawers,  see https://codesandbox.io/s/thirsty-ives-zc0ig?from-embed=&file=/layouts/layout-wrapper.js */}
       {/* TODO: implement searchField, we neeed react-intl first! */}
       {/* TODO: drag and drop, see: https://codesandbox.io/s/github/konvajs/site/tree/master/react-demos/drop_image_into_stage?from-embed=&file=/src/index.js:0-874 */}
@@ -55,7 +53,7 @@ const Sidebar = ({ onDrag }) => {
           alt="lion"
           src="https://static.arasaac.org/pictograms/27509/27509_300.png"
           draggable="true"
-          style={{ width: '200px', height: '200px' }}
+          style={{ width: '100px', height: '100px' }}
           onDragStart={(e) => {
             onDrag(e.target.src)
           }}
