@@ -1,26 +1,25 @@
-import React, { FC, ReactElement } from 'react'
+import React from 'react'
 import useImage from 'use-image'
 import { Image } from 'react-konva'
+import { defaultHeight, defaultWidth } from './constants'
 
-// TODO:  fix typescript  issus  with  konva types
+// TODO:  fix typescript  issues  with  konva types
 
 interface Props {
-  width: number
-  height: number
   onClick: (e: KonvaEventObject<MouseEvent>) => void
   template: string
 }
 
-const Template: FC<Props> = ({
-  width,
-  height,
-  onClick,
-  template,
-}): ReactElement => {
+const Template = ({ onClick, template }: Props): JSX.Element => {
   const [image] = useImage(template)
   const handleSelect = (e: KonvaEventObject<MouseEvent>) => onClick(e)
   return (
-    <Image image={image} width={width} height={height} onClick={handleSelect} />
+    <Image
+      image={image}
+      width={defaultWidth}
+      height={defaultHeight}
+      onClick={handleSelect}
+    />
   )
 }
 

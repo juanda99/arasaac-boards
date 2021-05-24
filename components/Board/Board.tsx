@@ -9,7 +9,12 @@ import uniqueString from 'unique-string'
 import Template from './Template'
 import URLImage from './URLImage'
 import Grid from './Grid'
-import { gridSize, imageSize } from './constants'
+import {
+  defaultGridSize,
+  imageSize,
+  defaultHeight,
+  defaultWidth,
+} from './constants'
 import { useStrictMode, Stage, Layer } from 'react-konva'
 import IconButton from '@material-ui/core/IconButton'
 
@@ -44,15 +49,23 @@ const getCanvasDimensions = (
     : { width: height, height: width }
 }
 
-const Board: React.FC = ({ dragUrl }) => {
+type BoardProps = {
+  dragUrl: string
+}
+
+const Board = ({ dragUrl }: BoardProps): JSX.Element => {
   const stageRef = useRef(null)
   const [zoom, setZoom] = useState(100)
   const [verticalOrientation, toggleOrientation] = useState(true)
 
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
+  // const [dimensions, setDimensions] = useState({
+  //   // width: window.innerWidth,
+  //   // height: window.innerHeight,
+  //   width: 280,
+  //   height: 280,
+  // })
+
+  const gridSize = (defaultGridSize * zoom) / 100
 
   const [images, setImages] = useState([])
   const [selectedId, selectShape] = useState(null)
@@ -66,31 +79,45 @@ const Board: React.FC = ({ dragUrl }) => {
     }
   }
 
-  const handleResize = (): void => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight })
-  }
+  // const handleResize = (): void => {
+  //   setDimensions({ width: window.innerWidth, height: window.innerHeight })
+  // }
 
   const handleSelectTemplate = (e) => {
     selectShape(null)
     // show template options
   }
 
-  const canvasDimensions = getCanvasDimensions(
-    dimensions.width,
-    dimensions.height,
-    verticalOrientation
-  )
+  // const canvasDimensions = getCanvasDimensions(
+  //   dimensions.width,
+  //   dimensions.height,
+  //   verticalOrientation
+  // )
 
-  React.useEffect(() => {
-    const debouncedHandleResize = debounce(handleResize, 1000)
-    window.addEventListener('resize', debouncedHandleResize)
-    return () => {
-      window.removeEventListener('resize', debouncedHandleResize)
-    }
-  })
+  // React.useEffect(() => {
+  //   const debouncedHandleResize = debounce(handleResize, 1000)
+  //   window.addEventListener('resize', debouncedHandleResize)
+  //   return () => {
+  //     window.removeEventListener('resize', debouncedHandleResize)
+  //   }
+  // })
 
-  const zoomWidth = (canvasDimensions.width * zoom) / 100
-  const zoomHeight = (canvasDimensions.height * zoom) / 100
+  // const zoomWidth = (canvasDimensions.width * zoom) / 100
+  // const zoomHeight = (canvasDimensions.height * zoom) / 100
+
+  // const zoomWidth = (dimensions.width * zoom) / 100
+  // const zoomHeight = (dimensions.height * zoom) / 100
+
+  // when image is loaded we need to cache the shape
+  // React.useEffect(() => {
+  //   if (gridRef) {
+  //     console.log(gridRef)
+  //     gridRef.current.cache()
+  //   }
+  // }, [zoom])
+
+  const width = (defaultWidth * zoom) / 100
+  const height = (defaultHeight * zoom) / 100
 
   return (
     <div>
@@ -121,7 +148,7 @@ const Board: React.FC = ({ dragUrl }) => {
           border: 2,
           borderStyle: 'solid',
           borderColor: '#ddd',
-          width: `${zoomWidth}px`,
+          width: `${width}px`,
           margin: '0 auto',
         }}
         onDrop={(e) => {
@@ -150,22 +177,18 @@ const Board: React.FC = ({ dragUrl }) => {
       >
         <Stage
           ref={stageRef}
-          width={zoomWidth}
-          height={zoomHeight}
+          width={width}
+          height={height}
           onMouseDown={checkDeselect}
           onTouchStart={checkDeselect}
           scale={{ x: zoom / 100, y: zoom / 100 }}
         >
-          <Grid
-            height={canvasDimensions.height}
-            width={canvasDimensions.width}
-            gridSize={gridSize}
-          />
+          <Grid />
 
           <Layer>
             <Template
-              width={canvasDimensions.width}
-              height={canvasDimensions.height}
+              width={width}
+              height={height}
               onClick={handleSelectTemplate}
               template={template}
             />
@@ -177,7 +200,7 @@ const Board: React.FC = ({ dragUrl }) => {
                 image={image}
                 zoom={zoom}
                 isSelected={image.id === selectedId}
-                gridSize={gridSize}
+                gridSize={defaultGridSize}
                 onSelect={() => {
                   selectShape(image.id)
                 }}

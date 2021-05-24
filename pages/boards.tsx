@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react'
 import dynamic from 'next/dynamic'
-import Drawer from '@material-ui/core/Drawer'
+// import Drawer from '@material-ui/core/Drawer'
 
 const BoardWithNoSSR = dynamic(() => import('../components/Board'), {
   ssr: false,
@@ -32,8 +32,8 @@ const BoardPage: FC = (): ReactElement => {
 }
 
 const Sidebar = ({ onDrag }) => {
-  const [openDrawer, toggleDrawer] = React.useState(true)
-  const handleToggleDrawer = () => toggleDrawer(!openDrawer)
+  // const [openDrawer, toggleDrawer] = React.useState(true)
+  // const handleToggleDrawer = () => toggleDrawer(!openDrawer)
 
   return (
     <>
