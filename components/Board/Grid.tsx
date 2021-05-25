@@ -1,8 +1,17 @@
 import React from 'react'
 import { Layer, Line, useStrictMode } from 'react-konva'
-import { defaultHeight, defaultWidth, defaultGridSize } from './constants'
 
-const Grid = (): JSX.Element => {
+type Props = {
+  defaultWidth: number
+  defaultHeight: number
+  defaultGridSize: number
+}
+
+const Grid = ({
+  defaultWidth,
+  defaultHeight,
+  defaultGridSize,
+}: Props): JSX.Element => {
   useStrictMode(true)
   const horizontalLines = Math.trunc(defaultHeight / defaultGridSize)
   const verticalLines = Math.trunc(defaultWidth / defaultGridSize)

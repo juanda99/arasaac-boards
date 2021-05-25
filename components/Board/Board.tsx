@@ -1,62 +1,58 @@
 import React, { useState, useRef } from 'react'
-import RotateIcon from '@material-ui/icons/Rotate90DegreesCcw'
+//  import RotateIcon from '@material-ui/icons/Rotate90DegreesCcw'
 import PrintIcon from '@material-ui/icons/Print'
 import ZoomInIcon from '@material-ui/icons/ZoomIn'
 import ZoomOutIcon from '@material-ui/icons/ZoomOut'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
 import uniqueString from 'unique-string'
+import { TEMPLATES_URL } from '../../utils/index'
 import Template from './Template'
+import { TemplateItem } from '../SingleLineGrid'
 import URLImage from './URLImage'
 import Grid from './Grid'
-import {
-  defaultGridSize,
-  imageSize,
-  defaultHeight,
-  defaultWidth,
-} from './constants'
-import { useStrictMode, Stage, Layer } from 'react-konva'
+
+import { Stage, Layer } from 'react-konva'
 import IconButton from '@material-ui/core/IconButton'
 
-useStrictMode(true)
+// const debounce = (
+//   fn: { apply: (arg0: undefined, arg1: IArguments) => void },
+//   ms: number
+// ) => {
+//   let timer: ReturnType<typeof setTimeout>
+//   return (_: any) => {
+//     clearTimeout(timer)
+//     timer = setTimeout((_) => {
+//       timer = null
+//       fn.apply(this, arguments)
+//     }, ms)
+//   }
+// }
 
-const debounce = (
-  fn: { apply: (arg0: undefined, arg1: IArguments) => void },
-  ms: number
-) => {
-  let timer: ReturnType<typeof setTimeout>
-  return (_: any) => {
-    clearTimeout(timer)
-    timer = setTimeout((_) => {
-      timer = null
-      fn.apply(this, arguments)
-    }, ms)
-  }
-}
+// const getCanvasDimensions = (
+//   windowWidth: number,
+//   windowHeight: number,
+//   verticalOrientation: boolean
+// ) => {
+//   const proportion = 841.89 / 595.28
+//   // A4 vertical vs horizontal
+//   const height = windowHeight
+//   const width = height / proportion
 
-const getCanvasDimensions = (
-  windowWidth: number,
-  windowHeight: number,
-  verticalOrientation: boolean
-) => {
-  const proportion = 841.89 / 595.28
-  // A4 vertical vs horizontal
-  const height = windowHeight
-  const width = height / proportion
-
-  return verticalOrientation
-    ? { width, height }
-    : { width: height, height: width }
-}
+//   return verticalOrientation
+//     ? { width, height }
+//     : { width: height, height: width }
+// }
 
 type BoardProps = {
   dragUrl: string
+  template: TemplateItem
 }
 
-const Board = ({ dragUrl }: BoardProps): JSX.Element => {
+const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
   const stageRef = useRef(null)
   const [zoom, setZoom] = useState(100)
-  const [verticalOrientation, toggleOrientation] = useState(true)
+  // const [verticalOrientation, toggleOrientation] = useState(true)
 
   // const [dimensions, setDimensions] = useState({
   //   // width: window.innerWidth,
@@ -65,11 +61,16 @@ const Board = ({ dragUrl }: BoardProps): JSX.Element => {
   //   height: 280,
   // })
 
-  const gridSize = (defaultGridSize * zoom) / 100
-
   const [images, setImages] = useState([])
   const [selectedId, selectShape] = useState(null)
-  const [template, setTemplate] = useState('./cubo.svg')
+
+  const defaultWidth = template.landscape ? 891 : 630
+  const defaultHeight = template.landscape ? 630 : 891
+  const defaultGridSize = template.gridSize
+  const imageSize = template.imageSize
+  const gridSize = (defaultGridSize * zoom) / 100
+  const width = (defaultWidth * zoom) / 100
+  const height = (defaultHeight * zoom) / 100
 
   const checkDeselect = (e) => {
     // deselect when clicked on empty area
@@ -116,20 +117,24 @@ const Board = ({ dragUrl }: BoardProps): JSX.Element => {
   //   }
   // }, [zoom])
 
-  const width = (defaultWidth * zoom) / 100
-  const height = (defaultHeight * zoom) / 100
+  // const height = (630 * zoom) / 100
+  // const width = template.landscape
+  //   ? (891 * zoom) / 100
+  //   : (height * (630 / 891) * zoom) / 100
+
+  console.log(template, width, height, '+*********')
 
   return (
     <div>
       <IconButton aria-label="print">
         <PrintIcon />
       </IconButton>
-      <IconButton
+      {/* <IconButton
         aria-label="rotate"
         onClick={() => toggleOrientation(!verticalOrientation)}
       >
         <RotateIcon />
-      </IconButton>
+      </IconButton> */}
       <IconButton aria-label="zoom out" onClick={() => setZoom(zoom - 5)}>
         <ZoomOutIcon />
       </IconButton>
@@ -183,14 +188,17 @@ const Board = ({ dragUrl }: BoardProps): JSX.Element => {
           onTouchStart={checkDeselect}
           scale={{ x: zoom / 100, y: zoom / 100 }}
         >
-          <Grid />
-
+          <Grid
+            defaultWidth={defaultWidth}
+            defaultHeight={defaultHeight}
+            defaultGridSize={defaultGridSize}
+          />
           <Layer>
             <Template
-              width={width}
-              height={height}
               onClick={handleSelectTemplate}
-              template={template}
+              template={`${TEMPLATES_URL}${template.src}`}
+              width={defaultWidth}
+              height={defaultHeight}
             />
           </Layer>
           <Layer>
@@ -198,7 +206,6 @@ const Board = ({ dragUrl }: BoardProps): JSX.Element => {
               <URLImage
                 key={`image-${index}`}
                 image={image}
-                zoom={zoom}
                 isSelected={image.id === selectedId}
                 gridSize={defaultGridSize}
                 onSelect={() => {

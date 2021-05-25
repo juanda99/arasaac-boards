@@ -1,8 +1,27 @@
-import React, { FC, useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Image, Transformer } from 'react-konva'
 import useImage from 'use-image'
 
-const URLImage: FC = ({ image, isSelected, gridSize, onSelect, onChange }) => {
+type ImageType = {
+  x: number
+  y: number
+  src: string
+}
+type Props = {
+  image: ImageType
+  isSelected: boolean
+  gridSize: number
+  onSelect: (item: any) => void
+  onChange: (item: any) => void
+}
+
+const URLImage = ({
+  image,
+  isSelected,
+  gridSize,
+  onSelect,
+  onChange,
+}: Props): JSX.Element => {
   const [img] = useImage(image.src, 'Anonymous')
   const [isDragging, setDragging] = useState(false)
   const shapeRef = useRef(null)
