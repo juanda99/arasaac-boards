@@ -20,11 +20,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import GridOnIcon from '@material-ui/icons/GridOn'
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import TextFieldsIcon from '@material-ui/icons/TextFields'
-import FontSidebar from './FontSidebar'
+
+import SidebarOptions from './SidebarOptions'
+import MenuItems from './MenuItems'
 
 const drawerWidth = 240
 
@@ -106,7 +104,13 @@ const IconSidebar = (): JSX.Element => {
     setOpen(false)
   }
 
-  console.log(currentMenu, '*****************************************')
+  const Component = currentMenu
+    ? MenuItems.filter((item) => item.type === currentMenu).map(
+        (item) => item.Component
+      )[0]
+    : null
+
+  console.log(Component, '00000000000000')
 
   return (
     <div className={classes.root}>
@@ -158,39 +162,27 @@ const IconSidebar = (): JSX.Element => {
         </div>
         <Divider />
         <List>
-          <ListItem button key={'prueba'}>
-            <ListItemIcon>
-              <GridOnIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Templates'} />
-          </ListItem>
-          <ListItem button key={'prueba2'}>
-            <ListItemIcon>
-              <PhotoLibraryIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Pictograms'} />
-          </ListItem>
-          <ListItem button key={'prueba4'} selected={true}>
-            <ListItemIcon>
-              <TextFieldsIcon
+          {MenuItems.map(({ type, MenuIcon }) => (
+            <ListItem button key={type} selected={currentMenu === type}>
+              <ListItemIcon
                 onClick={() => {
-                  setCurrentMenu('text')
+                  currentMenu === type
+                    ? setCurrentMenu(null)
+                    : setCurrentMenu(type)
                 }}
-              />
-            </ListItemIcon>
-            <ListItemText primary={'Text'} />
-          </ListItem>
-          <ListItem button key={'prueba5'}>
-            <ListItemIcon>
-              <CloudUploadIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Upload images'} />
-          </ListItem>
+              >
+                <MenuIcon />
+              </ListItemIcon>
+              <ListItemText primary={type} />
+            </ListItem>
+          ))}
         </List>
-
         <Divider />
       </Drawer>
-      {currentMenu === 'text' && <FontSidebar />}
+      <SidebarOptions>
+        <Component />
+      </SidebarOptions>
+
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
