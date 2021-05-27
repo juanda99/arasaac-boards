@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 // import Drawer from '@material-ui/core/Drawer'
 import Sidebar from '../containers/Sidebar'
+import IconSidebar from '../components/IconSidebar'
 import SingleLineGrid, { TemplateItem } from '../components/SingleLineGrid'
 
 const BoardWithNoSSR = dynamic(() => import('../components/Board'), {
@@ -24,25 +25,25 @@ const templateData = [
     desc: 'Lamina',
     src: 'lamina3.svg',
     landscape: true,
-    gridSize: 200,
-    imageSize: 100,
+    gridSize: 15,
+    imageSize: 180,
   },
   {
     img:
       'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
     desc: 'Cubo',
-    src: 'cubo.svg',
+    src: '',
     landscape: false,
-    gridSize: 191,
-    imageSize: 191,
+    gridSize: 209,
+    imageSize: 100,
   },
   {
     img:
       'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
     desc: 'Lamina',
-    src: 'lamina3.svg',
+    src: '',
     landscape: true,
-    gridSize: 200,
+    gridSize: 209,
     imageSize: 100,
   },
   {
@@ -132,6 +133,7 @@ const BoardPage = (): JSX.Element => {
 
   return (
     <div>
+      <IconSidebar />
       <SingleLineGrid data={templateData} onClick={handleClick} />
       <div
         style={{
