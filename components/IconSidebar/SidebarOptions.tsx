@@ -23,6 +23,9 @@ const SidebarOptions = ({
   children: React.ReactNode
 }): JSX.Element => {
   const classes = useStyles()
+  {
+    console.log(children, 'children-----')
+  }
   return children ? <div className={classes.drawer}>{children}</div> : null
 }
 

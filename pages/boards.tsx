@@ -1,124 +1,15 @@
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 // import Drawer from '@material-ui/core/Drawer'
-import Sidebar from '../containers/Sidebar'
-import IconSidebar from '../components/IconSidebar'
-import SingleLineGrid, { TemplateItem } from '../components/SingleLineGrid'
+import Sidebar from 'containers/Sidebar'
+import IconSidebar from 'components/IconSidebar'
+import SingleLineGrid, { TemplateItem } from 'components/SingleLineGrid'
+import templateData from 'data/templateData'
 
 const BoardWithNoSSR = dynamic(() => import('../components/Board'), {
   ssr: false,
 })
-
-const templateData = [
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: 'cubo.svg',
-    landscape: false,
-    gridSize: 191,
-    imageSize: 191,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: 'lamina3.svg',
-    landscape: true,
-    gridSize: 15,
-    imageSize: 180,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: '',
-    landscape: false,
-    gridSize: 209,
-    imageSize: 100,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: '',
-    landscape: true,
-    gridSize: 209,
-    imageSize: 100,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: 'cubo.svg',
-    landscape: false,
-    gridSize: 191,
-    imageSize: 191,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: 'lamina3.svg',
-    landscape: true,
-    gridSize: 200,
-    imageSize: 100,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: 'cubo.svg',
-    landscape: false,
-    gridSize: 191,
-    imageSize: 191,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: 'lamina3.svg',
-    landscape: true,
-    gridSize: 200,
-    imageSize: 100,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: 'cubo.svg',
-    landscape: false,
-    gridSize: 191,
-    imageSize: 191,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: 'lamina3.svg',
-    landscape: true,
-    gridSize: 200,
-    imageSize: 100,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/presentation%401x.png',
-    desc: 'Cubo',
-    src: 'cubo.svg',
-    landscape: false,
-    gridSize: 191,
-    imageSize: 191,
-  },
-  {
-    img:
-      'https://static.canva.com/marketplace/contextualThumbnails/infographic%401x.png',
-    desc: 'Lamina',
-    src: 'lamina3.svg',
-    landscape: true,
-    gridSize: 200,
-    imageSize: 100,
-  },
-]
 
 const BoardPage = (): JSX.Element => {
   const [dragUrl, setDragUrl] = useState(null) //for dragUrl
@@ -129,10 +20,11 @@ const BoardPage = (): JSX.Element => {
 
   const handleClick = (template: TemplateItem) => setTemplate(template)
 
-  console.log(template, templateData[0], '*******999')
-
   return (
     <div>
+      <Head>
+        <title>My page</title>
+      </Head>
       <IconSidebar />
       <SingleLineGrid data={templateData} onClick={handleClick} />
       <div
@@ -143,7 +35,7 @@ const BoardPage = (): JSX.Element => {
           paddingLeft: 200,
         }}
       >
-        <Sidebar onDrag={handleDrag} />
+        {/* <Sidebar onDrag={handleDrag} /> */}
         <BoardWithNoSSR dragUrl={dragUrl} template={template} />
         {/* TODO: Set differente drawers,  see https://codesandbox.io/s/thirsty-ives-zc0ig?from-embed=&file=/layouts/layout-wrapper.js */}
         {/* TODO: implement searchField, we neeed react-intl first! */}

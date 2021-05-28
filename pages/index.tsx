@@ -1,18 +1,42 @@
 import Link from 'next/link'
+import React from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { FormattedMessage } from 'react-intl'
 import Page from '../components/Page'
 import { addCount } from '../store/count/action'
 import { wrapper } from '../store/store'
 import { serverRenderClock, startClock } from '../store/tick/action'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
-const IndexPage = (props)  => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    // appBar: {
+    //   zIndex: theme.zIndex.drawer + 1,
+    // },
+  })
+)
+
+const IndexPage = (props) => {
   const router = useRouter()
   const { locale, locales, defaultLocale } = router
+  const classes = useStyles()
 
-    useEffect(() => {
+  useEffect(() => {
     const timer = props.startClock()
 
     return () => {
@@ -22,7 +46,30 @@ const IndexPage = (props)  => {
 
   return (
     <div>
-      <h1>Index page</h1>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            ARASAAC Boards
+          </Typography>
+
+          <div>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              // TODO: onClick={()=>}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Head>
+        <title>My page</title>
+      </Head>
+      <h1>
+        <FormattedMessage id="greeting" />
+      </h1>
       <p>Current locale: {locale}</p>
       <p>Default locale: {defaultLocale}</p>
       <p>Configured locales: {JSON.stringify(locales)}</p>

@@ -6,12 +6,12 @@ import ZoomOutIcon from '@material-ui/icons/ZoomOut'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
 import uniqueString from 'unique-string'
-import { TEMPLATES_URL } from '../../utils/index'
+import { TEMPLATES_URL } from 'utils/index'
 import Template from './Template'
 import { TemplateItem } from '../SingleLineGrid'
 import URLImage from './URLImage'
 import Grid from './Grid'
-
+import BackgroundLayer from './BackgroundLayer'
 import { Stage, Layer } from 'react-konva'
 import IconButton from '@material-ui/core/IconButton'
 
@@ -63,6 +63,7 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
 
   const [images, setImages] = useState([])
   const [selectedId, selectShape] = useState(null)
+  const [backgroundColor, setBackgroundColor] = useState('red')
 
   const defaultWidth = template.landscape ? 891 : 630
   const defaultHeight = template.landscape ? 630 : 891
@@ -188,6 +189,13 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
           onTouchStart={checkDeselect}
           scale={{ x: zoom / 100, y: zoom / 100 }}
         >
+          {!!backgroundColor && (
+            <BackgroundLayer
+              color={backgroundColor}
+              width={defaultWidth}
+              height={defaultHeight}
+            />
+          )}
           <Grid
             defaultWidth={defaultWidth}
             defaultHeight={defaultHeight}

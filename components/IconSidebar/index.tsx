@@ -107,10 +107,8 @@ const IconSidebar = (): JSX.Element => {
   const Component = currentMenu
     ? MenuItems.filter((item) => item.type === currentMenu).map(
         (item) => item.Component
-      )[0]
+      )[0]()
     : null
-
-  console.log(Component, '00000000000000')
 
   return (
     <div className={classes.root}>
@@ -179,9 +177,7 @@ const IconSidebar = (): JSX.Element => {
         </List>
         <Divider />
       </Drawer>
-      <SidebarOptions>
-        <Component />
-      </SidebarOptions>
+      <SidebarOptions>{Component}</SidebarOptions>
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
