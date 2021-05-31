@@ -5,14 +5,16 @@ const drawerWidth = 440
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawer: {
+      position: 'fixed',
       width: drawerWidth,
       flexShrink: 0,
       whiteSpace: 'nowrap',
       backgroundColor: theme.palette.action.selected,
       zIndex: 900,
-      marginLeft: 0,
-      marginTop: 0,
-      height: '100vh',
+      paddingTop: theme.spacing(8),
+      paddingLeft: theme.spacing(12),
+      minHeight: '100vh',
+      //  height: '100%',
     },
   })
 )
@@ -23,9 +25,6 @@ const SidebarOptions = ({
   children: React.ReactNode
 }): JSX.Element => {
   const classes = useStyles()
-  {
-    console.log(children, 'children-----')
-  }
   return children ? <div className={classes.drawer}>{children}</div> : null
 }
 

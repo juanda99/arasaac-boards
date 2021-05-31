@@ -123,10 +123,8 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
   //   ? (891 * zoom) / 100
   //   : (height * (630 / 891) * zoom) / 100
 
-  console.log(template, width, height, '+*********')
-
   return (
-    <div>
+    <div style={{ margin: '0  auto', paddingTop: '100px' }}>
       <IconButton aria-label="print">
         <PrintIcon />
       </IconButton>

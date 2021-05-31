@@ -1,6 +1,7 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import AppHeader from 'components/AppHeader'
 import Head from 'next/head'
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
@@ -11,11 +12,8 @@ import { addCount } from '../store/count/action'
 import { wrapper } from '../store/store'
 import { serverRenderClock, startClock } from '../store/tick/action'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import SingleLineGrid, { TemplateItem } from 'components/SingleLineGrid'
+import templateData from 'data/templateData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +34,9 @@ const IndexPage = (props) => {
   const { locale, locales, defaultLocale } = router
   const classes = useStyles()
 
+  const handleClick = (template: TemplateItem) =>
+    router.push(`/boards/${template.title}`)
+
   useEffect(() => {
     const timer = props.startClock()
 
@@ -46,30 +47,14 @@ const IndexPage = (props) => {
 
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            ARASAAC Boards
-          </Typography>
-
-          <div>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              // TODO: onClick={()=>}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
       <Head>
         <title>My page</title>
       </Head>
+      <AppHeader showMenu={false} />
       <h1>
         <FormattedMessage id="greeting" />
       </h1>
+      <SingleLineGrid data={templateData} onClick={handleClick} />
       <p>Current locale: {locale}</p>
       <p>Default locale: {defaultLocale}</p>
       <p>Configured locales: {JSON.stringify(locales)}</p>

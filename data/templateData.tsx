@@ -5,6 +5,7 @@ type Props = {
   landscape: boolean
   gridSize: number
   imageSize: number
+  title: string
 }
 
 const templateData: Props[] = [
@@ -16,6 +17,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 191,
     imageSize: 191,
+    title: 'cube',
   },
   {
     img:
@@ -25,6 +27,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 15,
     imageSize: 180,
+    title: 'routine',
   },
   {
     img:
@@ -34,6 +37,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 209,
     imageSize: 100,
+    title: 'cube',
   },
   {
     img:
@@ -43,6 +47,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 209,
     imageSize: 100,
+    title: 'cube',
   },
   {
     img:
@@ -52,6 +57,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 191,
     imageSize: 191,
+    title: 'cube',
   },
   {
     img:
@@ -61,6 +67,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 200,
     imageSize: 100,
+    title: 'cube',
   },
   {
     img:
@@ -70,6 +77,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 191,
     imageSize: 191,
+    title: 'cube',
   },
   {
     img:
@@ -79,6 +87,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 200,
     imageSize: 100,
+    title: 'cube',
   },
   {
     img:
@@ -88,6 +97,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 191,
     imageSize: 191,
+    title: 'cube',
   },
   {
     img:
@@ -97,6 +107,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 200,
     imageSize: 100,
+    title: 'cube',
   },
   {
     img:
@@ -106,6 +117,7 @@ const templateData: Props[] = [
     landscape: false,
     gridSize: 191,
     imageSize: 191,
+    title: 'cube',
   },
   {
     img:
@@ -115,6 +127,7 @@ const templateData: Props[] = [
     landscape: true,
     gridSize: 200,
     imageSize: 100,
+    title: 'cube',
   },
 ]
 

@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { IntlProvider } from 'react-intl'
 import { wrapper } from '../store/store'
+import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -27,7 +28,14 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const messages = languages[locale]
 
   return (
-    <React.Fragment>
+    <>
+      <Head>
+        <title>ARASAAC boards</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
       <IntlProvider
         locale={locale}
         defaultLocale={defaultLocale}
@@ -39,7 +47,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </ThemeProvider>
       </IntlProvider>
-    </React.Fragment>
+    </>
   )
 }
 
