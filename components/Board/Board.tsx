@@ -14,6 +14,7 @@ import Grid from './Grid'
 import BackgroundLayer from './BackgroundLayer'
 import { Stage, Layer } from 'react-konva'
 import IconButton from '@material-ui/core/IconButton'
+import { Toolbar } from 'components/Board'
 
 // const debounce = (
 //   fn: { apply: (arg0: undefined, arg1: IArguments) => void },
@@ -123,29 +124,11 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
   //   ? (891 * zoom) / 100
   //   : (height * (630 / 891) * zoom) / 100
 
+  const handleZoom = (zoom: number): void => setZoom(zoom)
+
   return (
-    <div style={{ margin: '0  auto', paddingTop: '100px' }}>
-      <IconButton aria-label="print">
-        <PrintIcon />
-      </IconButton>
-      {/* <IconButton
-        aria-label="rotate"
-        onClick={() => toggleOrientation(!verticalOrientation)}
-      >
-        <RotateIcon />
-      </IconButton> */}
-      <IconButton aria-label="zoom out" onClick={() => setZoom(zoom - 5)}>
-        <ZoomOutIcon />
-      </IconButton>
-      <IconButton aria-label="zoom in" onClick={() => setZoom(zoom + 5)}>
-        <ZoomInIcon />
-      </IconButton>
-      <IconButton aria-label="undo">
-        <UndoIcon />
-      </IconButton>
-      <IconButton aria-label="redo">
-        <RedoIcon />
-      </IconButton>
+    <div style={{ margin: '0  auto', paddingTop: '150px' }}>
+      <Toolbar zoom={zoom} changeZoom={handleZoom} />
 
       <div
         style={{

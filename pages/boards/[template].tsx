@@ -30,10 +30,10 @@ const BoardPage = (): JSX.Element => {
     setDragUrl(url)
   }
 
-  const handleClick = (template: TemplateItem) => setTemplate(template)
+  // const handleClick = (template: TemplateItem) => setTemplate(template)
 
   return (
-    <div className={classes.main} id="pipipi">
+    <div className={classes.main}>
       <Head>
         <title>My page</title>
       </Head>

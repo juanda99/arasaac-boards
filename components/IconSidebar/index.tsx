@@ -20,6 +20,20 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import AppHeader from 'components/AppHeader'
+import GridOnIcon from '@material-ui/icons/GridOn'
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import TextFieldsIcon from '@material-ui/icons/TextFields'
+
+import FontOptions from './FontOptions'
+import PictogramOptions from './PictogramOptions'
+import TemplateOptions from './TemplateOptions'
+import UploadOptions from './UploadOptions'
+
+export const TEMPLATE = 'TEMPLATE'
+export const PICTOGRAM = 'PICTOGRAM'
+export const TEXT = 'TEXT'
+export const UPLOAD_FILE = 'UPLOAD_FILE'
 
 import SidebarOptions from './SidebarOptions'
 import MenuItems from './MenuItems'
@@ -108,11 +122,11 @@ const IconSidebar = (): JSX.Element => {
 
   const handleToggleDrawer = () => setOpen(!open)
 
-  const Component = currentMenu
-    ? MenuItems.filter((item) => item.type === currentMenu).map(
-        (item) => item.Component
-      )[0]()
-    : null
+  // const Component = currentMenu
+  //   ? MenuItems.filter((item) => item.type === currentMenu).map(
+  //       (item) => item.Component
+  //     )[0]()
+  //   : null
 
   return (
     <div className={classes.root}>
@@ -133,27 +147,75 @@ const IconSidebar = (): JSX.Element => {
       >
         <Divider />
         <List style={{ marginTop: '56px' }}>
-          {MenuItems.map(({ type, MenuIcon }) => (
-            <ListItem
-              button
-              key={type}
-              selected={currentMenu === type}
-              onClick={() => {
-                currentMenu === type
-                  ? setCurrentMenu(null)
-                  : setCurrentMenu(type)
-              }}
-            >
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary={type} />
-            </ListItem>
-          ))}
+          <ListItem
+            button
+            key={TEMPLATE}
+            selected={currentMenu === TEMPLATE}
+            onClick={() => {
+              currentMenu === TEMPLATE
+                ? setCurrentMenu(null)
+                : setCurrentMenu(TEMPLATE)
+            }}
+          >
+            <ListItemIcon>
+              <GridOnIcon />
+            </ListItemIcon>
+            <ListItemText primary={TEMPLATE} />
+          </ListItem>
+          <ListItem
+            button
+            key={PICTOGRAM}
+            selected={currentMenu === PICTOGRAM}
+            onClick={() => {
+              currentMenu === PICTOGRAM
+                ? setCurrentMenu(null)
+                : setCurrentMenu(PICTOGRAM)
+            }}
+          >
+            <ListItemIcon>
+              <PhotoLibraryIcon />
+            </ListItemIcon>
+            <ListItemText primary={PICTOGRAM} />
+          </ListItem>
+
+          <ListItem
+            button
+            key={TEXT}
+            selected={currentMenu === TEXT}
+            onClick={() => {
+              currentMenu === TEXT ? setCurrentMenu(null) : setCurrentMenu(TEXT)
+            }}
+          >
+            <ListItemIcon>
+              <TextFieldsIcon />
+            </ListItemIcon>
+            <ListItemText primary={TEXT} />
+          </ListItem>
+
+          <ListItem
+            button
+            key={UPLOAD_FILE}
+            selected={currentMenu === UPLOAD_FILE}
+            onClick={() => {
+              currentMenu === UPLOAD_FILE
+                ? setCurrentMenu(null)
+                : setCurrentMenu(UPLOAD_FILE)
+            }}
+          >
+            <ListItemIcon>
+              <CloudUploadIcon />
+            </ListItemIcon>
+            <ListItemText primary={UPLOAD_FILE} />
+          </ListItem>
         </List>
         <Divider />
       </Drawer>
-      <SidebarOptions>{Component}</SidebarOptions>
+      <SidebarOptions>
+        {currentMenu === TEMPLATE && <TemplateOptions />}
+        {currentMenu === PICTOGRAM && <PictogramOptions />}
+        {currentMenu === TEXT && <FontOptions />}
+        {currentMenu === UPLOAD_FILE && <UploadOptions />}
+      </SidebarOptions>
     </div>
   )
 }
