@@ -140,6 +140,7 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
         }}
         onDrop={(e) => {
           e.preventDefault()
+          console.log('jjjjjjjjj jjjjjj')
           // register event position
           stageRef.current.setPointersPositions(e)
           //  add images
@@ -159,8 +160,12 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
               },
             ])
           )
+          console.log(position.x, position.y, imageSize, dragUrl)
         }}
-        onDragOver={(e) => e.preventDefault()}
+        onDragOver={(e) => {
+          console.log('kkkkkkkkkkkkkkk')
+          e.preventDefault()
+        }}
       >
         <Stage
           ref={stageRef}
@@ -201,6 +206,7 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
                   selectShape(image.id)
                 }}
                 onChange={(newAttrs) => {
+                  console.log('changedddddd!!!!')
                   const cloneImages = images.slice()
                   cloneImages[index] = newAttrs
                   setImages(cloneImages)
