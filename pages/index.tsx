@@ -11,28 +11,12 @@ import Page from '../components/Page'
 import { addCount } from '../store/count/action'
 import { wrapper } from '../store/store'
 import { serverRenderClock, startClock } from '../store/tick/action'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import SingleLineGrid, { TemplateItem } from 'components/SingleLineGrid'
+import { TemplateItem } from 'components/SingleLineGrid'
 import templateData from 'data/templateData'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-    // appBar: {
-    //   zIndex: theme.zIndex.drawer + 1,
-    // },
-  })
-)
 
 const IndexPage = (props) => {
   const router = useRouter()
   const { locale, locales, defaultLocale } = router
-  const classes = useStyles()
 
   const handleClick = (template: TemplateItem) =>
     router.push(`/boards/${template.title}`)
@@ -54,7 +38,9 @@ const IndexPage = (props) => {
       <h1>
         <FormattedMessage id="greeting" />
       </h1>
-      <SingleLineGrid data={templateData} onClick={handleClick} />
+
+      {/* 
+      <SingleLineGrid data={templateData} onClick={handleClick} /> */}
       <p>Current locale: {locale}</p>
       <p>Default locale: {defaultLocale}</p>
       <p>Configured locales: {JSON.stringify(locales)}</p>

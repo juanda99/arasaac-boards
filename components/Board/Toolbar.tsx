@@ -1,26 +1,22 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-//  import RotateIcon from '@material-ui/icons/Rotate90DegreesCcw'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import PrintIcon from '@material-ui/icons/Print'
-import ZoomInIcon from '@material-ui/icons/ZoomIn'
-import ZoomOutIcon from '@material-ui/icons/ZoomOut'
-import UndoIcon from '@material-ui/icons/Undo'
-import RedoIcon from '@material-ui/icons/Redo'
-import IconButton from '@material-ui/core/IconButton'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+//  import RotateIcon from '@md/Rotate90DegreesCcw'
+import PrintIcon from '@mui/icons-material/Print'
+import ZoomInIcon from '@mui/icons-material/ZoomIn'
+import ZoomOutIcon from '@mui/icons-material/ZoomOut'
+import UndoIcon from '@mui/icons-material/Undo'
+import RedoIcon from '@mui/icons-material/Redo'
+import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/system'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolBar: {
-      position: 'fixed',
-      top: '70px',
-      left: '400px',
-      margin: '0 auto',
-      display: 'flex',
-    },
-  })
-)
+const StyledDiv = styled('div')({
+  position: 'fixed',
+  top: 70,
+  left: 400,
+  margin: '0 auto',
+  display: 'flex',
+})
 
 const zoomOptions = [...Array(201).keys()].filter(
   (item) => item % 5 === 0 && item > 45
@@ -43,14 +39,13 @@ const Toolbar = ({
   changePictoSize,
   changeGridSize,
 }: Props): JSX.Element => {
-  const classes = useStyles()
   // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
   //   changeZoom(event.target.value as number)
   // }
 
   return (
     // TODO  GRID SIZE, GRID COLOR, REMOVE GRID, IMAGE SIZE, ADJUST TO GRID
-    <div className={classes.toolBar}>
+    <StyledDiv>
       <IconButton aria-label="print">
         <PrintIcon />
       </IconButton>
@@ -104,7 +99,7 @@ const Toolbar = ({
       <IconButton aria-label="redo">
         <RedoIcon />
       </IconButton>
-    </div>
+    </StyledDiv>
   )
 }
 

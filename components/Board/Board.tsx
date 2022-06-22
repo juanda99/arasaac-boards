@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
-//  import RotateIcon from '@material-ui/icons/Rotate90DegreesCcw'
-import PrintIcon from '@material-ui/icons/Print'
-import ZoomInIcon from '@material-ui/icons/ZoomIn'
-import ZoomOutIcon from '@material-ui/icons/ZoomOut'
-import UndoIcon from '@material-ui/icons/Undo'
-import RedoIcon from '@material-ui/icons/Redo'
+//  import RotateIcon from '@mui/icons-material/Rotate90DegreesCcw'
+// import PrintIcon from '@mui/icons-material/Print'
+// import ZoomInIcon from '@mui/icons-material/ZoomIn'
+// import ZoomOutIcon from '@mui/icons-material/ZoomOut'
+// import UndoIcon from '@mui/icons-material/Undo'
+// import RedoIcon from '@mui/icons-material/Redo'
 import uniqueString from 'unique-string'
 import { TEMPLATES_URL } from 'utils/index'
 import Template from './Template'
@@ -13,7 +13,7 @@ import URLImage from './URLImage'
 import Grid from './Grid'
 import BackgroundLayer from './BackgroundLayer'
 import { Stage, Layer } from 'react-konva'
-import IconButton from '@material-ui/core/IconButton'
+// import IconButton from '@mui/material/IconButton'
 import { Toolbar } from 'components/Board'
 
 // const debounce = (
@@ -140,7 +140,6 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
         }}
         onDrop={(e) => {
           e.preventDefault()
-          console.log('jjjjjjjjj jjjjjj')
           // register event position
           stageRef.current.setPointersPositions(e)
           //  add images
@@ -160,10 +159,8 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
               },
             ])
           )
-          console.log(position.x, position.y, imageSize, dragUrl)
         }}
         onDragOver={(e) => {
-          console.log('kkkkkkkkkkkkkkk')
           e.preventDefault()
         }}
       >
@@ -206,7 +203,6 @@ const Board = ({ dragUrl, template }: BoardProps): JSX.Element => {
                   selectShape(image.id)
                 }}
                 onChange={(newAttrs) => {
-                  console.log('changedddddd!!!!')
                   const cloneImages = images.slice()
                   cloneImages[index] = newAttrs
                   setImages(cloneImages)

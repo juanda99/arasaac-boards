@@ -1,40 +1,38 @@
-import React, { FC } from 'react'
+import * as React from 'react'
+import Head from 'next/head'
+import '../style.css'
+import { wrapper } from '../store/store'
 import { useRouter } from 'next/router'
 import { IntlProvider } from 'react-intl'
-import { wrapper } from '../store/store'
-import Head from 'next/head'
 import { AppProps } from 'next/app'
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
 import theme from '../store/theme'
+import createEmotionCache from '../store/createEmotionCache'
 
 const languages = {
   en: require('/translations/en.json'),
   es: require('/translations/es.json'),
 }
 
-const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles)
-    }
-  }, [])
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
 
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+function MyApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   // see https://www.infoxicator.com/es/traduciendo-mi-blog-con-next-js
   const router = useRouter()
   const { locale, defaultLocale } = router
   const messages = languages[locale]
-
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
-        <title>ARASAAC boards</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <IntlProvider
         locale={locale}
@@ -47,8 +45,8 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </ThemeProvider>
       </IntlProvider>
-    </>
+    </CacheProvider>
   )
 }
 
-export default wrapper.withRedux(WrappedApp)
+export default wrapper.withRedux(MyApp)

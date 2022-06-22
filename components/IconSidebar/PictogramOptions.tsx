@@ -1,20 +1,30 @@
-import React, { useContext } from 'react'
-import { DragImageContext } from 'pages/boards/[template]'
+import { useState } from 'react'
+import Stack from '@mui/material/Stack'
+import { useKeywords } from 'utils/hooks'
+import SearchBox from 'components/SearchBox'
+import PictogramList from 'components/PictogramList'
+
 const PictogramOptions = (): JSX.Element => {
-  const handleDrag = useContext(DragImageContext)
+  const [keyword, setKeyword] = useState<string>('')
+
+  const { keywords } = useKeywords('es')
+  function handleChange(keyword: string) {
+    setKeyword(keyword)
+    // eslint-disable-next-line no-console
+    console.log('handleChange keywords!!!!!')
+  }
+
   return (
-    <div>
-      <p>Prueba pictogramas </p>
-      <img
-        alt="lion"
-        src="https://static.arasaac.org/pictograms/27509/27509_300.png"
-        draggable="true"
-        style={{ width: '100px', height: '100px' }}
-        onDragStart={(e) => {
-          handleDrag(e.target.src)
-        }}
+    <Stack spacing={2} mt={5}>
+      <SearchBox
+        value={keyword}
+        label="prueba"
+        options={keywords}
+        onChange={handleChange}
       />
-    </div>
+      <p>Prueba pictogramas </p>
+      {keyword && <PictogramList keyword={keyword} language="es" />}
+    </Stack>
   )
 }
 

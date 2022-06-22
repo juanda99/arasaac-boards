@@ -1,7 +1,7 @@
-import GridOnIcon from '@material-ui/icons/GridOn'
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import TextFieldsIcon from '@material-ui/icons/TextFields'
+import GridOnIcon from '@mui/icons-material/GridOn'
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import TextFieldsIcon from '@mui/icons-material/TextFields'
 
 import FontOptions from './FontOptions'
 import PictogramOptions from './PictogramOptions'

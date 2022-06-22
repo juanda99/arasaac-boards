@@ -1,8 +1,6 @@
 import React, { useState, createContext } from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-// import Drawer from '@material-ui/core/Drawer'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
 
 import IconSidebar from 'components/IconSidebar'
 import { TemplateItem } from 'components/SingleLineGrid'
@@ -14,16 +12,7 @@ const BoardWithNoSSR = dynamic(() => import('components/Board'), {
 
 export const DragImageContext = createContext(undefined)
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    main: {
-      display: 'flex',
-    },
-  })
-)
-
 const BoardPage = (): JSX.Element => {
-  const classes = useStyles()
   const [dragUrl, setDragUrl] = useState(null) //for dragUrl
   const [template, setTemplate] = useState(templateData[0])
   const handleDrag = (url: string): void => {
@@ -33,7 +22,11 @@ const BoardPage = (): JSX.Element => {
   // const handleClick = (template: TemplateItem) => setTemplate(template)
 
   return (
-    <div className={classes.main}>
+    <div
+      style={{
+        display: 'flex',
+      }}
+    >
       <Head>
         <title>My page</title>
       </Head>
